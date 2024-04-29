@@ -1,5 +1,7 @@
 package com.betrybe.alexandria.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,9 +10,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id"
+)
 @Entity
 @Table(name = "bookDetails")
-public class BookDetails {
+public class BookDetail {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,10 +38,10 @@ public class BookDetails {
     this.book = book;
   }
 
-  public BookDetails() {
+  public BookDetail() {
   }
 
-  public BookDetails(String summary, Integer pagesCount, String year, String isbn) {
+  public BookDetail(String summary, Integer pagesCount, String year, String isbn) {
     this.summary = summary;
     this.pagesCount = pagesCount;
     this.year = year;

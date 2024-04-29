@@ -1,6 +1,7 @@
 package com.betrybe.alexandria.controller;
 
 import com.betrybe.alexandria.entity.Book;
+import com.betrybe.alexandria.entity.BookDetail;
 import com.betrybe.alexandria.service.BookService;
 import java.util.List;
 import java.util.Optional;
@@ -59,4 +60,30 @@ public class BookController {
     return ResponseEntity.status(HttpStatus.ACCEPTED).body(delete);
   }
 
+  @PostMapping("/{bookId}/detail")
+  public ResponseEntity<BookDetail> createBookDetail(@PathVariable Long bookId,
+      @RequestBody BookDetail bookDetail) {
+    BookDetail create = bookService.createBookDetail(bookId, bookDetail);
+    return ResponseEntity.status(HttpStatus.CREATED).body(create);
+  }
+
+  @GetMapping("/{bookId}/detail")
+  public ResponseEntity<BookDetail> getBookDetailById(@PathVariable Long bookId)
+  {
+    BookDetail detail = bookService.getBookDetailById(bookId);
+    return ResponseEntity.status(200).body(detail);
+  }
+
+  @PutMapping("/{bookId}/detail")
+  public ResponseEntity<BookDetail> updateDatail(@PathVariable Long bookId,
+      @RequestBody BookDetail bookDetail) {
+    BookDetail update = bookService.updateBookDateil(bookId, bookDetail);
+    return ResponseEntity.status(HttpStatus.ACCEPTED).body(update);
+  }
+
+  @DeleteMapping("/{bookId}/detail")
+  public ResponseEntity<BookDetail> deleteDetail(@PathVariable Long bookId) {
+    BookDetail delete = bookService.deleteBookDetails(bookId);
+    return ResponseEntity.status(HttpStatus.ACCEPTED).body(delete);
+  }
 }

@@ -1,5 +1,8 @@
 package com.betrybe.alexandria.entity;
 
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,6 +11,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id"
+)
 @Entity
 @Table(name = "books")
 public class Book {
@@ -21,13 +28,13 @@ public class Book {
   private String genre;
 
   @OneToOne(mappedBy = "book", cascade = CascadeType.ALL)
-  private BookDetails details;
+  private BookDetail details;
 
-  public BookDetails getDetails() {
+  public BookDetail getDetails() {
     return details;
   }
 
-  public void setDetails(BookDetails details) {
+  public void setDetails(BookDetail details) {
     this.details = details;
   }
 

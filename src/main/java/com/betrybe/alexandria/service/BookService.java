@@ -1,7 +1,7 @@
 package com.betrybe.alexandria.service;
 
 import com.betrybe.alexandria.entity.Book;
-import com.betrybe.alexandria.entity.BookDetails;
+import com.betrybe.alexandria.entity.BookDetail;
 import com.betrybe.alexandria.exception.BookDetailsException;
 import com.betrybe.alexandria.exception.BookException;
 import com.betrybe.alexandria.repository.BookDetailRepository;
@@ -18,8 +18,9 @@ public class BookService {
   public BookDetailRepository bookDetailRepository;
 
   @Autowired
-  public BookService(BookRepository bookRepository) {
+  public BookService(BookRepository bookRepository, BookDetailRepository bookDetailRepository) {
     this.bookRepository = bookRepository;
+    this.bookDetailRepository = bookDetailRepository;
   }
 
   public List<Book> findAllBooks() {
@@ -57,7 +58,7 @@ public class BookService {
     return book.get();
   }
 
-  public BookDetails createBookDetail(Long bookId, BookDetails bookDetails) {
+  public BookDetail createBookDetail(Long bookId, BookDetail bookDetails) {
     Optional<Book> book = findBookById(bookId);
 
     bookDetails.setBook(
@@ -68,16 +69,44 @@ public class BookService {
 
   }
 
-  public BookDetails getBookDetailById(Long bookId) {
+  public BookDetail getBookDetailById(Long bookId) {
     Optional<Book> book = findBookById(bookId);
 
-    BookDetails bookDetails = book.get().getDetails();
+    BookDetail getDetails = book.get().getDetails();
 
-    if(bookDetails == null) {
-      throw new BookDetailsException();
+    if(getDetails == null) {
+      throw new BookDetailsException(); // um livro pode existir sem um detalhe, apenas o contrário não é permitido
     }
 
-    return bookDetails;
+    return getDetails;
+  }
+
+  public BookDetail updateBookDateil(Long bookId, BookDetail bookDetail) {
+
+    BookDetail bookDetailFromDb = getBookDetailById(bookId);
+
+    bookDetailFromDb.setIsbn(bookDetail.getIsbn());
+    bookDetailFromDb.setYear(bookDetail.getYear());
+    bookDetailFromDb.setSummary(bookDetail.getSummary());
+    bookDetailFromDb.setPagesCount(bookDetail.getPagesCount());
+
+    return bookDetailRepository.save(bookDetailFromDb);
+  }
+
+  public BookDetail deleteBookDetails(Long bookId) {
+    Optional<Book> book = findBookById(bookId);
+    BookDetail bookDetail = book.get().getDetails();
+
+    if(bookDetail == null) {
+      throw new BookDetailsException(); // verifica se os detalhes existem
+    }
+
+    book.get().setDetails(null); // quebra o relacionamento entre elas
+    bookDetail.setBook(null); // quebra o relacionamento entre elas
+
+    bookDetailRepository.delete(bookDetail);
+
+    return bookDetail;
   }
 }
 
