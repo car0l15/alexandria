@@ -1,6 +1,7 @@
 package com.betrybe.alexandria.advice;
 
 import com.betrybe.alexandria.exception.AuthorException;
+import com.betrybe.alexandria.exception.BookDetailsException;
 import com.betrybe.alexandria.exception.BookException;
 import com.betrybe.alexandria.exception.PublisherException;
 import org.springframework.http.HttpStatus;
@@ -25,4 +26,10 @@ public class GeneralControllerAdvice {
   public ResponseEntity<String> handlePublisherNotFound(PublisherException e) {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Editora não encontrada, tente um id válido!");
   }
+
+  @ExceptionHandler(BookDetailsException.class)
+    public ResponseEntity<String> handleBookDetailsNotFound(BookDetailsException e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Este livro não possui detalhes");
+  }
 }
+
