@@ -16,34 +16,69 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The type Author controller.
+ */
 @RestController
 @RequestMapping("/library/authors")
 public class AuthorController {
 
+  /**
+   * The Author service.
+   */
   public AuthorService authorService;
 
+  /**
+   * Instantiates a new Author controller.
+   *
+   * @param authorService the author service
+   */
   @Autowired
   public AuthorController(AuthorService authorService) {
     this.authorService = authorService;
   }
 
+  /**
+   * Gets all author.
+   *
+   * @return the all author
+   */
   @GetMapping()
   public List<Author> getAllAuthor() {
     return authorService.findAllAuthors();
   }
 
+  /**
+   * Gets author by id.
+   *
+   * @param id the id
+   * @return the author by id
+   */
   @GetMapping("/{id}")
   public ResponseEntity<Author> getAuthorById(@PathVariable Long id) {
     Optional<Author> author = authorService.findAuthorsById(id);
     return ResponseEntity.status(200).body(author.get());
   }
 
+  /**
+   * Create author response entity.
+   *
+   * @param author the author
+   * @return the response entity
+   */
   @PostMapping
   public ResponseEntity<Author> createAuthor(@RequestBody Author author) {
     Author create = authorService.createAuthor(author);
     return ResponseEntity.status(201).body(create);
   }
 
+  /**
+   * Update author response entity.
+   *
+   * @param id      the id
+   * @param request the request
+   * @return the response entity
+   */
   @PutMapping("/{id}")
   public ResponseEntity<Author> updateAuthor(@PathVariable Long id, @RequestBody Author request)
   {
@@ -52,6 +87,12 @@ public class AuthorController {
     return ResponseEntity.status(HttpStatus.ACCEPTED).body(update);
   }
 
+  /**
+   * Delete author response entity.
+   *
+   * @param id the id
+   * @return the response entity
+   */
   @DeleteMapping("/{id}")
   public ResponseEntity<Author> deleteAuthor(@PathVariable Long id) {
     Author delete = authorService.deleteAuthorById(id);

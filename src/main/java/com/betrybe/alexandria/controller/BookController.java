@@ -15,35 +15,72 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The type Book controller.
+ */
 @RestController
 @RequestMapping("/library/books")
 public class BookController {
+
+  /**
+   * The Book service.
+   */
   public BookService bookService;
 
+  /**
+   * Instantiates a new Book controller.
+   *
+   * @param bookService the book service
+   */
   @Autowired
   public BookController(BookService bookService) {
     this.bookService = bookService;
   }
 
+  /**
+   * Gets all books.
+   *
+   * @return the all books
+   */
   @GetMapping
   public List<Book> getAllBooks() {
     return bookService.findAllBooks();
   }
 
+  /**
+   * Gets book by id.
+   *
+   * @param id the id
+   * @return the book by id
+   */
   @GetMapping("/{id}")
   public ResponseEntity<Book> getBookById(@PathVariable Long id) {
     Optional<Book> book = bookService.findBookById(id);
     return ResponseEntity.status(200).body(book.get());
   }
 
+  /**
+   * Create book response entity.
+   *
+   * @param book the book
+   * @return the response entity
+   */
   @PostMapping
   public ResponseEntity<Book> createBook(@RequestBody Book book) {
     Book create = bookService.createBook(book);
     return ResponseEntity.status(201).body(create);
   }
 
+  /**
+   * Update book response entity.
+   *
+   * @param id   the id
+   * @param book the book
+   * @return the response entity
+   */
   @PutMapping("/{id}")
   public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
 
@@ -53,6 +90,12 @@ public class BookController {
 
   }
 
+  /**
+   * Delete book response entity.
+   *
+   * @param id the id
+   * @return the response entity
+   */
   @DeleteMapping("/{id}")
   public ResponseEntity<Book> deleteBook(@PathVariable Long id) {
 
@@ -60,6 +103,13 @@ public class BookController {
     return ResponseEntity.status(HttpStatus.ACCEPTED).body(delete);
   }
 
+  /**
+   * Create book detail response entity.
+   *
+   * @param bookId     the book id
+   * @param bookDetail the book detail
+   * @return the response entity
+   */
   @PostMapping("/{bookId}/detail")
   public ResponseEntity<BookDetail> createBookDetail(@PathVariable Long bookId,
       @RequestBody BookDetail bookDetail) {
@@ -67,6 +117,12 @@ public class BookController {
     return ResponseEntity.status(HttpStatus.CREATED).body(create);
   }
 
+  /**
+   * Gets book detail by id.
+   *
+   * @param bookId the book id
+   * @return the book detail by id
+   */
   @GetMapping("/{bookId}/detail")
   public ResponseEntity<BookDetail> getBookDetailById(@PathVariable Long bookId)
   {
@@ -74,6 +130,13 @@ public class BookController {
     return ResponseEntity.status(200).body(detail);
   }
 
+  /**
+   * Update datail response entity.
+   *
+   * @param bookId     the book id
+   * @param bookDetail the book detail
+   * @return the response entity
+   */
   @PutMapping("/{bookId}/detail")
   public ResponseEntity<BookDetail> updateDatail(@PathVariable Long bookId,
       @RequestBody BookDetail bookDetail) {
@@ -81,9 +144,42 @@ public class BookController {
     return ResponseEntity.status(HttpStatus.ACCEPTED).body(update);
   }
 
+  /**
+   * Delete detail response entity.
+   *
+   * @param bookId the book id
+   * @return the response entity
+   */
   @DeleteMapping("/{bookId}/detail")
   public ResponseEntity<BookDetail> deleteDetail(@PathVariable Long bookId) {
     BookDetail delete = bookService.deleteBookDetails(bookId);
     return ResponseEntity.status(HttpStatus.ACCEPTED).body(delete);
   }
+
+  /**
+   * Sets book publisher.
+   *
+   * @param bookId      the book id
+   * @param publisherId the publisher id
+   * @return the book publisher
+   */
+  @PutMapping("/{bookId}/publisher/{publisherId}")
+  @ResponseStatus(HttpStatus.ACCEPTED)
+  public Book setBookPublisher(@PathVariable Long bookId,
+      @PathVariable Long publisherId) {
+    return bookService.setBookPublisher(bookId, publisherId);
+  }
+
+  /**
+   * Remove book publisher book.
+   *
+   * @param bookId the book id
+   * @return the book
+   */
+  @DeleteMapping("/{bookId}/publisher")
+  @ResponseStatus(HttpStatus.ACCEPTED)
+  public Book removeBookPublisher(@PathVariable Long bookId) {
+    return bookService.removePublisher(bookId);
+  }
+
 }
