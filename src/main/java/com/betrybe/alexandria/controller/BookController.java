@@ -182,4 +182,29 @@ public class BookController {
     return bookService.removePublisher(bookId);
   }
 
+  /**
+   * Add book author book.
+   *
+   * @param bookId   the book id
+   * @param authorId the author id
+   * @return the book
+   */
+  @PutMapping("/{bookId}/authors/{authorId}")
+  @ResponseStatus(HttpStatus.ACCEPTED)
+  public Book addBookAuthor(@PathVariable Long bookId, @PathVariable Long authorId) {
+    return bookService.addBookAuthor(bookId, authorId);
+  }
+
+  /**
+   * Remove book author book.
+   *
+   * @param bookId   the book id
+   * @param authorId the author id
+   * @return the book
+   */
+  @DeleteMapping("/{bookId}/authors/{authorId}")
+  @ResponseStatus(HttpStatus.ACCEPTED)
+  public Book removeBookAuthor(@PathVariable Long bookId, @PathVariable Long authorId) {
+    return bookService.removeBookAuthor(bookId, authorId);
+  }
 }

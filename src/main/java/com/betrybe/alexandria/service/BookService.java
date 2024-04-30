@@ -1,5 +1,6 @@
 package com.betrybe.alexandria.service;
 
+import com.betrybe.alexandria.entity.Author;
 import com.betrybe.alexandria.entity.Book;
 import com.betrybe.alexandria.entity.BookDetail;
 import com.betrybe.alexandria.entity.Publisher;
@@ -33,18 +34,25 @@ public class BookService {
   public PublisherService publisherService;
 
   /**
+   * The Author service.
+   */
+  public AuthorService authorService;
+
+  /**
    * Instantiates a new Book service.
    *
    * @param bookRepository       the book repository
    * @param bookDetailRepository the book detail repository
    * @param publisherService     the publisher service
+   * @param authorService        the author service
    */
   @Autowired
   public BookService(BookRepository bookRepository, BookDetailRepository bookDetailRepository,
-      PublisherService publisherService) {
+      PublisherService publisherService, AuthorService authorService) {
     this.bookRepository = bookRepository;
     this.bookDetailRepository = bookDetailRepository;
     this.publisherService = publisherService;
+    this.authorService = authorService;
   }
 
   /**
@@ -217,6 +225,38 @@ public class BookService {
     book.get().setPublisher(null);
 
     return bookRepository.save(book.get());
+  }
+
+  /**
+   * Add book author book.
+   *
+   * @param bookId   the book id
+   * @param authorId the author id
+   * @return the book
+   */
+  public Book addBookAuthor(Long bookId, Long authorId) {
+    Optional<Book> book = findBookById(bookId);
+    Optional<Author> author = authorService.findAuthorsById(authorId);
+
+    book.get().getAuthors().add(author.get());
+
+    return bookRepository.save(book.get());
+  }
+
+  /**
+   * Remove book author book.
+   *
+   * @param bookId   the book id
+   * @param authorId the author id
+   * @return the book
+   */
+  public Book removeBookAuthor(Long bookId, Long authorId) {
+    Optional<Book> book = findBookById(bookId);
+    Optional<Author> author = authorService.findAuthorsById(authorId);
+
+    book.get().getAuthors().removeIf(autor -> autor.getId().equals(authorId));
+
+   return bookRepository.save(book.get());
   }
 }
 
