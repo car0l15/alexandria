@@ -65,9 +65,8 @@ public class PublisherController {
    * @return the response entity
    */
   @PostMapping
-  public  ResponseEntity<Publisher> createPublisher(@RequestBody Publisher publisher) {
-    Publisher create = publisherService.createPublisher(publisher);
-
+  public ResponseEntity<List<Publisher>> createPublisher(@RequestBody List<Publisher> publisher) {
+    List<Publisher> create = publisher.stream().map(publisherService::createPublisher).toList();
     return ResponseEntity.status(201).body(create);
   }
 

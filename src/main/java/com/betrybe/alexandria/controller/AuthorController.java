@@ -67,8 +67,8 @@ public class AuthorController {
    * @return the response entity
    */
   @PostMapping
-  public ResponseEntity<Author> createAuthor(@RequestBody Author author) {
-    Author create = authorService.createAuthor(author);
+  public ResponseEntity<List<Author>> createAuthor(@RequestBody List<Author> author) {
+   List<Author> create = author.stream().map(authorService::createAuthor).toList();
     return ResponseEntity.status(201).body(create);
   }
 

@@ -5,6 +5,7 @@ import com.betrybe.alexandria.entity.BookDetail;
 import com.betrybe.alexandria.service.BookService;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,13 +71,14 @@ public class BookController {
   /**
    * Create book response entity.
    *
-   * @param book the book
+   * @param books the book
    * @return the response entity
    */
   @PostMapping
-  public ResponseEntity<Book> createBook(@RequestBody Book book) {
-    Book create = bookService.createBook(book);
-    return ResponseEntity.status(201).body(create);
+  public ResponseEntity<List<Book>> createBooks(@RequestBody List<Book> books) {
+    List<Book> createdBooks = books.stream()
+        .map(bookService::createBook).toList();
+    return ResponseEntity.status(201).body(createdBooks);
   }
 
   /**
