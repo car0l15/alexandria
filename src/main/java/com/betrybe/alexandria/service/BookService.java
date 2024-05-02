@@ -61,6 +61,8 @@ public class BookService {
   /**
    * Find all books list.
    *
+   * @param pageNumber the page number
+   * @param pageSize   the page size
    * @return the list
    */
   public List<Book> findAllBooks(int pageNumber, int pageSize) {

@@ -80,8 +80,6 @@ public class AuthorService {
     findAuthor.get().setName(author.getName());
     findAuthor.get().setNationality(author.getNationality());
 
-//    return bookRepository.save(findBook.get());
-
     return authorRepository.save(findAuthor.get());
   }
 

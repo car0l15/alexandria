@@ -45,6 +45,8 @@ public class BookController {
   /**
    * Gets all books.
    *
+   * @param pageNumber the page number
+   * @param pageSize   the page size
    * @return the all books
    */
   @GetMapping
@@ -69,9 +71,9 @@ public class BookController {
   }
 
   /**
-   * Create book response entity.
+   * Create books response entity.
    *
-   * @param books the book
+   * @param books the books
    * @return the response entity
    */
   @PostMapping
