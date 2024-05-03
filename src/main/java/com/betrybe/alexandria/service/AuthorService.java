@@ -77,8 +77,11 @@ public class AuthorService {
   public Author updateAuthor(Long id, Author author) {
     Optional<Author> findAuthor = findAuthorsById(id);
 
-    findAuthor.get().setName(author.getName());
-    findAuthor.get().setNationality(author.getNationality());
+    findAuthor.get().setName(Optional.ofNullable(author.getName())
+        .orElse(findAuthor.get().getName()));
+
+    findAuthor.get().setNationality(Optional.ofNullable(author.getNationality())
+        .orElse(findAuthor.get().getNationality()));
 
     return authorRepository.save(findAuthor.get());
   }

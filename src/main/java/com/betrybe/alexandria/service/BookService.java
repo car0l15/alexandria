@@ -108,8 +108,12 @@ public class BookService {
 
     Optional<Book> findBook = findBookById(id);
 
-    findBook.get().setGenre(book.getGenre());
-    findBook.get().setTitle(book.getTitle());
+   findBook.get().setGenre(Optional.ofNullable(book.getGenre())
+       .orElse(findBook.get().getGenre()));
+
+   findBook.get().setTitle(Optional.ofNullable(book.getTitle())
+       .orElse(findBook.get().getTitle())
+   );
 
     return bookRepository.save(findBook.get());
   }
@@ -174,10 +178,10 @@ public class BookService {
 
     BookDetail bookDetailFromDb = getBookDetailById(bookId);
 
-    bookDetailFromDb.setIsbn(bookDetail.getIsbn());
-    bookDetailFromDb.setYear(bookDetail.getYear());
-    bookDetailFromDb.setSummary(bookDetail.getSummary());
-    bookDetailFromDb.setPagesCount(bookDetail.getPagesCount());
+    bookDetailFromDb.setIsbn(Optional.ofNullable(bookDetail.getIsbn()).orElse(bookDetailFromDb.getIsbn()));
+    bookDetailFromDb.setYear(Optional.ofNullable(bookDetail.getYear()).orElse(bookDetailFromDb.getYear()));
+    bookDetailFromDb.setSummary(Optional.ofNullable(bookDetail.getSummary()).orElse(bookDetailFromDb.getSummary()));
+    bookDetailFromDb.setPagesCount(Optional.ofNullable(bookDetail.getPagesCount()).orElse(bookDetailFromDb.getPagesCount()));
 
     return bookDetailRepository.save(bookDetailFromDb);
   }

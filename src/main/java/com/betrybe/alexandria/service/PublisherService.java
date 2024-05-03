@@ -76,8 +76,11 @@ public class PublisherService {
 
     Optional<Publisher> findPublisher = findPubliserById(id);
 
-    findPublisher.get().setName(publisher.getName());
-    findPublisher.get().setAddress(publisher.getAddress());
+    findPublisher.get().setName(Optional.ofNullable(publisher.getName())
+        .orElse(findPublisher.get().getName()));
+
+    findPublisher.get().setAddress(Optional.ofNullable(publisher.getAddress())
+        .orElse(findPublisher.get().getAddress()));
 
     return publisherRepository.save(findPublisher.get());
   }
