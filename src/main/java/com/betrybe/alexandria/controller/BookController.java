@@ -1,11 +1,10 @@
 package com.betrybe.alexandria.controller;
 
-import com.betrybe.alexandria.entity.Book;
-import com.betrybe.alexandria.entity.BookDetail;
+import com.betrybe.alexandria.model.entity.Book;
+import com.betrybe.alexandria.model.entity.BookDetail;
 import com.betrybe.alexandria.service.BookService;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

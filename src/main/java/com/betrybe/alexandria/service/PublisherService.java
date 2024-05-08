@@ -1,9 +1,8 @@
 package com.betrybe.alexandria.service;
 
-import com.betrybe.alexandria.entity.Book;
-import com.betrybe.alexandria.entity.Publisher;
+import com.betrybe.alexandria.model.entity.Publisher;
 import com.betrybe.alexandria.exception.PublisherException;
-import com.betrybe.alexandria.repository.PublisherRepository;
+import com.betrybe.alexandria.model.repository.PublisherRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
-package com.betrybe.alexandria.repository;
+package com.betrybe.alexandria.model.repository;
 
-import com.betrybe.alexandria.entity.Author;
+import com.betrybe.alexandria.model.entity.Author;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

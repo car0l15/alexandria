@@ -1,4 +1,4 @@
-package com.betrybe.alexandria.entity;
+package com.betrybe.alexandria.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

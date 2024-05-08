@@ -1,13 +1,13 @@
 package com.betrybe.alexandria.service;
 
-import com.betrybe.alexandria.entity.Author;
-import com.betrybe.alexandria.entity.Book;
-import com.betrybe.alexandria.entity.BookDetail;
-import com.betrybe.alexandria.entity.Publisher;
+import com.betrybe.alexandria.model.entity.Author;
+import com.betrybe.alexandria.model.entity.Book;
+import com.betrybe.alexandria.model.entity.BookDetail;
+import com.betrybe.alexandria.model.entity.Publisher;
 import com.betrybe.alexandria.exception.BookDetailsException;
 import com.betrybe.alexandria.exception.BookException;
-import com.betrybe.alexandria.repository.BookDetailRepository;
-import com.betrybe.alexandria.repository.BookRepository;
+import com.betrybe.alexandria.model.repository.BookDetailRepository;
+import com.betrybe.alexandria.model.repository.BookRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,7 +110,6 @@ public class BookService {
 
    findBook.get().setGenre(Optional.ofNullable(book.getGenre())
        .orElse(findBook.get().getGenre()));
-
    findBook.get().setTitle(Optional.ofNullable(book.getTitle())
        .orElse(findBook.get().getTitle())
    );

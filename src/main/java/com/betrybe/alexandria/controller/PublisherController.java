@@ -1,6 +1,6 @@
 package com.betrybe.alexandria.controller;
 
-import com.betrybe.alexandria.entity.Publisher;
+import com.betrybe.alexandria.model.entity.Publisher;
 import com.betrybe.alexandria.service.PublisherService;
 import java.util.List;
 import java.util.Optional;
